@@ -9,11 +9,23 @@ const Board = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('latest'); // latest, oldest, priceHigh, priceLow
 
-  useEffect(() => {
+  const loadPosts = () => {
     // 로컬 스토리지에서 게시글 목록 가져오기
     const savedPosts = storage.getPosts();
     setPosts(savedPosts);
     setFilteredPosts(savedPosts);
+  };
+
+  useEffect(() => {
+    loadPosts();
+    
+    // 페이지 포커스 시 데이터 새로고침
+    const handleFocus = () => {
+      loadPosts();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   // 검색 및 정렬 적용
@@ -93,19 +105,24 @@ const Board = () => {
             className="search-input"
           />
         </div>
-        <div className="sort-box">
-          <label htmlFor="sort">정렬:</label>
-          <select
-            id="sort"
-            value={sortBy}
-            onChange={handleSortChange}
-            className="sort-select"
-          >
-            <option value="latest">최신순</option>
-            <option value="oldest">오래된순</option>
-            <option value="priceHigh">가격 높은순</option>
-            <option value="priceLow">가격 낮은순</option>
-          </select>
+        <div className="controls-right">
+          <div className="sort-box">
+            <label htmlFor="sort">정렬:</label>
+            <select
+              id="sort"
+              value={sortBy}
+              onChange={handleSortChange}
+              className="sort-select"
+            >
+              <option value="latest">최신순</option>
+              <option value="oldest">오래된순</option>
+              <option value="priceHigh">가격 높은순</option>
+              <option value="priceLow">가격 낮은순</option>
+            </select>
+          </div>
+          <button onClick={loadPosts} className="refresh-button" title="새로고침">
+            🔄
+          </button>
         </div>
       </div>
 

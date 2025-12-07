@@ -51,10 +51,35 @@
   border-color: #ff6f0f;
 }
 
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .sort-box {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.refresh-button {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh-button:hover {
+  background-color: #f5f5f5;
+  border-color: #ff6f0f;
+  transform: rotate(180deg);
 }
 
 .sort-box label {
@@ -218,6 +243,11 @@
 
   .search-box {
     max-width: 100%;
+  }
+
+  .controls-right {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .posts-grid {
