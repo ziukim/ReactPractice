@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
@@ -10,9 +11,16 @@ import PostWrite from './pages/PostWrite';
 import PostEdit from './pages/PostEdit';
 import MyPage from './pages/MyPage';
 import NotFound from './pages/NotFound';
+import { initializeSampleData } from './utils/sampleData';
+import { storage } from './utils/storage';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    // 앱 시작 시 샘플 데이터 초기화 (데이터가 없을 때만)
+    initializeSampleData(storage);
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthProvider>
