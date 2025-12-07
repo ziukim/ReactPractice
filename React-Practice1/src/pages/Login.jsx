@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { storage } from '../utils/storage';
+import { resetSampleData } from '../utils/sampleData';
 import './Login.css';
 
 const Login = () => {
@@ -14,6 +15,31 @@ const Login = () => {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSampleInfo, setShowSampleInfo] = useState(false);
+
+  // 샘플 계정 정보
+  const sampleAccounts = [
+    { email: 'minji@example.com', password: '123456', nickname: '민지' },
+    { email: 'seungwoo@example.com', password: '123456', nickname: '승우' },
+    { email: 'soyeon@example.com', password: '123456', nickname: '소연' },
+    { email: 'donghyun@example.com', password: '123456', nickname: '동현' },
+    { email: 'yuna@example.com', password: '123456', nickname: '유나' },
+  ];
+
+  const handleResetSampleData = () => {
+    if (window.confirm('모든 데이터를 초기화하고 샘플 데이터로 재설정하시겠습니까?\n(로그인 정보도 초기화됩니다)')) {
+      resetSampleData(storage);
+      alert('샘플 데이터로 초기화되었습니다!\n샘플 계정으로 로그인할 수 있습니다.');
+      window.location.reload();
+    }
+  };
+
+  const handleSampleAccountClick = (email, password) => {
+    setFormData({
+      email,
+      password,
+    });
+  };
 
   // 입력값 변경 핸들러
   const handleChange = (e) => {
@@ -141,6 +167,43 @@ const Login = () => {
           <p>
             계정이 없으신가요? <Link to="/signup">회원가입하기</Link>
           </p>
+        </div>
+
+        <div className="sample-data-section">
+          <button
+            type="button"
+            onClick={() => setShowSampleInfo(!showSampleInfo)}
+            className="sample-info-toggle"
+          >
+            {showSampleInfo ? '▼' : '▶'} 샘플 계정 정보
+          </button>
+          
+          {showSampleInfo && (
+            <div className="sample-accounts">
+              <p className="sample-info-text">
+                테스트용 샘플 계정입니다. 클릭하면 자동으로 입력됩니다.
+              </p>
+              <div className="sample-accounts-list">
+                {sampleAccounts.map((account, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => handleSampleAccountClick(account.email, account.password)}
+                    className="sample-account-button"
+                  >
+                    {account.nickname} ({account.email})
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={handleResetSampleData}
+                className="reset-sample-button"
+              >
+                🔄 샘플 데이터 초기화
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

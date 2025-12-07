@@ -343,21 +343,32 @@ export const generateSamplePosts = () => {
   ];
 };
 
-export const initializeSampleData = (storage) => {
-  // 이미 데이터가 있으면 초기화하지 않음
+export const initializeSampleData = (storage, force = false) => {
+  // 이미 데이터가 있으면 초기화하지 않음 (force가 true면 강제 초기화)
   const existingUsers = storage.getUsers();
   const existingPosts = storage.getPosts();
 
-  if (existingUsers.length === 0) {
+  if (existingUsers.length === 0 || force) {
     const sampleUsers = generateSampleUsers();
     storage.saveUsers(sampleUsers);
     console.log('샘플 사용자 데이터가 초기화되었습니다.');
   }
 
-  if (existingPosts.length === 0) {
+  if (existingPosts.length === 0 || force) {
     const samplePosts = generateSamplePosts();
     storage.savePosts(samplePosts);
     console.log('샘플 게시글 데이터가 초기화되었습니다.');
   }
+};
+
+export const resetSampleData = (storage) => {
+  // 모든 데이터를 초기화하고 샘플 데이터로 재설정
+  localStorage.removeItem('users');
+  localStorage.removeItem('posts');
+  localStorage.removeItem('user');
+  localStorage.removeItem('authToken');
+  
+  initializeSampleData(storage, true);
+  console.log('모든 데이터가 초기화되고 샘플 데이터로 재설정되었습니다.');
 };
 
