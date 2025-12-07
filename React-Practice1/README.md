@@ -1,16 +1,50 @@
-# React + Vite
+# 🥕 중고거래 플랫폼
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React를 활용한 당근마켓 스타일의 중고거래 플랫폼 프로젝트입니다.
 
-Currently, two official plugins are available:
+## 프로젝트 소개
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React의 주요 개념(Hooks, Props, Routing 등)을 학습하고 실전 프로젝트를 통해 완성도 있는 SPA를 구현하는 것이 목표입니다.
 
-## React Compiler
+## 주요 기능
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ 게시판형 CRUD 기능 (등록, 목록, 수정, 삭제, 상세 페이지, 정렬/검색)
+- ✅ 로그인/회원가입 기능 (유효성 검사, 마이페이지, 유저정보 수정)
+- ✅ 페이지 라우팅 (react-router-dom 활용, 404 페이지)
+- ✅ 로컬 스토리지를 활용한 데이터 영속성
 
-## Expanding the ESLint configuration
+## 기술 스택
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19
+- React Router DOM 7
+- Vite
+- CSS3
+
+## 시작하기
+
+### 필수 패키지 설치
+
+```bash
+npm install
+```
+
+### 개발 서버 실행
+
+```bash
+npm run dev
+```
+
+## 프로젝트 구조
+
+```
+src/
+├── components/     # 공통 컴포넌트
+├── pages/          # 페이지 컴포넌트
+├── context/        # Context API (인증 상태 관리 등)
+├── utils/          # 유틸리티 함수
+└── hooks/          # 커스텀 훅
+```
+
+## 개발 단계
+
+이 프로젝트는 단계별로 기능을 구현하며 체계적인 Git 커밋을 통해 진행됩니다.
