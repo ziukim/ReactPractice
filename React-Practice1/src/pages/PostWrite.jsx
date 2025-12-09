@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { storage } from '../utils/storage';
 import ProtectedRoute from '../components/ProtectedRoute';
 import * as S from './PostWrite.styled';

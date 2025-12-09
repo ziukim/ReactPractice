@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -23,22 +22,20 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <GlobalStyle />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/board" element={<Board />} />
-            <Route path="/post/:id" element={<PostDetail />} />
-            <Route path="/post/write" element={<PostWrite />} />
-            <Route path="/post/edit/:id" element={<PostEdit />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </AuthProvider>
+      <GlobalStyle />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/board" element={<Board />} />
+          <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/post/write" element={<PostWrite />} />
+          <Route path="/post/edit/:id" element={<PostEdit />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }
