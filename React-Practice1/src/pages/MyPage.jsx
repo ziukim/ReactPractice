@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { storage } from '../utils/storage';
 import ProtectedRoute from '../components/ProtectedRoute';
-import './MyPage.css';
+import * as S from './MyPage.styled';
 
 const MyPage = () => {
   const { user, updateUser } = useAuth();
@@ -165,46 +165,45 @@ const MyPage = () => {
 
   return (
     <ProtectedRoute>
-      <div className="mypage-container">
-        <div className="mypage-card">
+      <S.MyPageContainer>
+        <S.MyPageCard>
           <h1>마이페이지</h1>
 
           {!isEditing ? (
-            <div className="user-info-view">
-              <div className="info-section">
+            <S.UserInfoView>
+              <S.InfoSection>
                 <h2>내 정보</h2>
-                <div className="info-item">
+                <S.InfoItem>
                   <span className="label">사용자명:</span>
                   <span className="value">{user.username}</span>
-                </div>
-                <div className="info-item">
+                </S.InfoItem>
+                <S.InfoItem>
                   <span className="label">닉네임:</span>
                   <span className="value">{user.nickname}</span>
-                </div>
-                <div className="info-item">
+                </S.InfoItem>
+                <S.InfoItem>
                   <span className="label">이메일:</span>
                   <span className="value">{user.email}</span>
-                </div>
-                <div className="info-item">
+                </S.InfoItem>
+                <S.InfoItem>
                   <span className="label">가입일:</span>
                   <span className="value">
                     {new Date(user.createdAt).toLocaleDateString('ko-KR')}
                   </span>
-                </div>
-              </div>
+                </S.InfoItem>
+              </S.InfoSection>
 
-              <button
+              <S.EditButton
                 onClick={() => setIsEditing(true)}
-                className="edit-button"
               >
                 정보 수정
-              </button>
-            </div>
+              </S.EditButton>
+            </S.UserInfoView>
           ) : (
-            <form onSubmit={handleSubmit} className="edit-form">
+            <S.EditForm onSubmit={handleSubmit}>
               <h2>정보 수정</h2>
 
-              <div className="form-group">
+              <S.FormGroup>
                 <label htmlFor="username">사용자명</label>
                 <input
                   type="text"
@@ -213,10 +212,10 @@ const MyPage = () => {
                   disabled
                   className="disabled-input"
                 />
-                <p className="help-text">사용자명은 변경할 수 없습니다.</p>
-              </div>
+                <S.HelpText>사용자명은 변경할 수 없습니다.</S.HelpText>
+              </S.FormGroup>
 
-              <div className="form-group">
+              <S.FormGroup>
                 <label htmlFor="nickname">닉네임 *</label>
                 <input
                   type="text"
@@ -228,11 +227,11 @@ const MyPage = () => {
                   className={errors.nickname ? 'error' : ''}
                 />
                 {errors.nickname && (
-                  <span className="error-message">{errors.nickname}</span>
+                  <S.ErrorMessage>{errors.nickname}</S.ErrorMessage>
                 )}
-              </div>
+              </S.FormGroup>
 
-              <div className="form-group">
+              <S.FormGroup>
                 <label htmlFor="email">이메일 *</label>
                 <input
                   type="email"
@@ -244,14 +243,14 @@ const MyPage = () => {
                   className={errors.email ? 'error' : ''}
                 />
                 {errors.email && (
-                  <span className="error-message">{errors.email}</span>
+                  <S.ErrorMessage>{errors.email}</S.ErrorMessage>
                 )}
-              </div>
+              </S.FormGroup>
 
-              <div className="password-section">
+              <S.PasswordSection>
                 <h3>비밀번호 변경 (선택사항)</h3>
 
-                <div className="form-group">
+                <S.FormGroup>
                   <label htmlFor="currentPassword">현재 비밀번호</label>
                   <input
                     type="password"
@@ -263,13 +262,13 @@ const MyPage = () => {
                     className={errors.currentPassword ? 'error' : ''}
                   />
                   {errors.currentPassword && (
-                    <span className="error-message">
+                    <S.ErrorMessage>
                       {errors.currentPassword}
-                    </span>
+                    </S.ErrorMessage>
                   )}
-                </div>
+                </S.FormGroup>
 
-                <div className="form-group">
+                <S.FormGroup>
                   <label htmlFor="newPassword">새 비밀번호</label>
                   <input
                     type="password"
@@ -281,11 +280,11 @@ const MyPage = () => {
                     className={errors.newPassword ? 'error' : ''}
                   />
                   {errors.newPassword && (
-                    <span className="error-message">{errors.newPassword}</span>
+                    <S.ErrorMessage>{errors.newPassword}</S.ErrorMessage>
                   )}
-                </div>
+                </S.FormGroup>
 
-                <div className="form-group">
+                <S.FormGroup>
                   <label htmlFor="newPasswordConfirm">새 비밀번호 확인</label>
                   <input
                     type="password"
@@ -297,33 +296,31 @@ const MyPage = () => {
                     className={errors.newPasswordConfirm ? 'error' : ''}
                   />
                   {errors.newPasswordConfirm && (
-                    <span className="error-message">
+                    <S.ErrorMessage>
                       {errors.newPasswordConfirm}
-                    </span>
+                    </S.ErrorMessage>
                   )}
-                </div>
-              </div>
+                </S.FormGroup>
+              </S.PasswordSection>
 
-              <div className="button-group">
-                <button
+              <S.ButtonGroup>
+                <S.CancelButton
                   type="button"
                   onClick={handleCancel}
-                  className="cancel-button"
                 >
                   취소
-                </button>
-                <button
+                </S.CancelButton>
+                <S.SubmitButton
                   type="submit"
-                  className="submit-button"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? '저장 중...' : '저장'}
-                </button>
-              </div>
-            </form>
+                </S.SubmitButton>
+              </S.ButtonGroup>
+            </S.EditForm>
           )}
-        </div>
-      </div>
+        </S.MyPageCard>
+      </S.MyPageContainer>
     </ProtectedRoute>
   );
 };

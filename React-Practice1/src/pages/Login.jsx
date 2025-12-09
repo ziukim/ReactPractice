@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { storage } from '../utils/storage';
 import { resetSampleData } from '../utils/sampleData';
-import './Login.css';
+import * as S from './Login.styled';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -120,13 +120,13 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
+    <S.LoginContainer>
+      <S.LoginCard>
         <h1>로그인</h1>
-        <p className="subtitle">중고거래 플랫폼에 오신 것을 환영합니다!</p>
+        <S.Subtitle>중고거래 플랫폼에 오신 것을 환영합니다!</S.Subtitle>
 
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
+        <S.LoginForm onSubmit={handleSubmit}>
+          <S.FormGroup>
             <label htmlFor="email">이메일</label>
             <input
               type="email"
@@ -137,10 +137,10 @@ const Login = () => {
               placeholder="example@email.com"
               className={errors.email ? 'error' : ''}
             />
-            {errors.email && <span className="error-message">{errors.email}</span>}
-          </div>
+            {errors.email && <S.ErrorMessage>{errors.email}</S.ErrorMessage>}
+          </S.FormGroup>
 
-          <div className="form-group">
+          <S.FormGroup>
             <label htmlFor="password">비밀번호</label>
             <input
               type="password"
@@ -151,62 +151,58 @@ const Login = () => {
               placeholder="비밀번호를 입력해주세요"
               className={errors.password ? 'error' : ''}
             />
-            {errors.password && <span className="error-message">{errors.password}</span>}
-          </div>
+            {errors.password && <S.ErrorMessage>{errors.password}</S.ErrorMessage>}
+          </S.FormGroup>
 
-          <button 
+          <S.SubmitButton 
             type="submit" 
-            className="submit-button"
             disabled={isSubmitting}
           >
             {isSubmitting ? '로그인 중...' : '로그인'}
-          </button>
-        </form>
+          </S.SubmitButton>
+        </S.LoginForm>
 
-        <div className="signup-link">
+        <S.SignupLink>
           <p>
             계정이 없으신가요? <Link to="/signup">회원가입하기</Link>
           </p>
-        </div>
+        </S.SignupLink>
 
-        <div className="sample-data-section">
-          <button
+        <S.SampleDataSection>
+          <S.SampleInfoToggle
             type="button"
             onClick={() => setShowSampleInfo(!showSampleInfo)}
-            className="sample-info-toggle"
           >
             {showSampleInfo ? '▼' : '▶'} 샘플 계정 정보
-          </button>
+          </S.SampleInfoToggle>
           
           {showSampleInfo && (
-            <div className="sample-accounts">
-              <p className="sample-info-text">
+            <S.SampleAccounts>
+              <S.SampleInfoText>
                 테스트용 샘플 계정입니다. 클릭하면 자동으로 입력됩니다.
-              </p>
-              <div className="sample-accounts-list">
+              </S.SampleInfoText>
+              <S.SampleAccountsList>
                 {sampleAccounts.map((account, index) => (
-                  <button
+                  <S.SampleAccountButton
                     key={index}
                     type="button"
                     onClick={() => handleSampleAccountClick(account.email, account.password)}
-                    className="sample-account-button"
                   >
                     {account.nickname} ({account.email})
-                  </button>
+                  </S.SampleAccountButton>
                 ))}
-              </div>
-              <button
+              </S.SampleAccountsList>
+              <S.ResetSampleButton
                 type="button"
                 onClick={handleResetSampleData}
-                className="reset-sample-button"
               >
                 🔄 샘플 데이터 초기화
-              </button>
-            </div>
+              </S.ResetSampleButton>
+            </S.SampleAccounts>
           )}
-        </div>
-      </div>
-    </div>
+        </S.SampleDataSection>
+      </S.LoginCard>
+    </S.LoginContainer>
   );
 };
 

@@ -1,27 +1,34 @@
-.board-container {
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+export const BoardContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
-}
+`;
 
-.board-header {
+export const BoardHeader = styled.div`
   text-align: center;
   margin-bottom: 2rem;
-}
 
-.board-header h1 {
-  color: #ff6f0f;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
+  h1 {
+    color: #ff6f0f;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
 
-.subtitle {
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+`;
+
+export const Subtitle = styled.p`
   color: #666;
   font-size: 1rem;
-}
+`;
 
-.board-controls {
+export const BoardControls = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,40 +37,59 @@
   padding: 1rem;
   background-color: #f9f9f9;
   border-radius: 8px;
-}
 
-.search-box {
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+`;
+
+export const SearchBox = styled.div`
   flex: 1;
   max-width: 500px;
-}
 
-.search-input {
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+`;
+
+export const SearchInput = styled.input`
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s;
-}
 
-.search-input:focus {
-  outline: none;
-  border-color: #ff6f0f;
-}
+  &:focus {
+    outline: none;
+    border-color: #ff6f0f;
+  }
+`;
 
-.controls-right {
+export const ControlsRight = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-}
 
-.sort-box {
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+`;
+
+export const SortBox = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
 
-.refresh-button {
+  label {
+    font-weight: 500;
+    color: #333;
+  }
+`;
+
+export const RefreshButton = styled.button`
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -74,20 +100,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.refresh-button:hover {
-  background-color: #f5f5f5;
-  border-color: #ff6f0f;
-  transform: rotate(180deg);
-}
+  &:hover {
+    background-color: #f5f5f5;
+    border-color: #ff6f0f;
+    transform: rotate(180deg);
+  }
+`;
 
-.sort-box label {
-  font-weight: 500;
-  color: #333;
-}
-
-.sort-select {
+export const SortSelect = styled.select`
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -95,33 +116,33 @@
   background-color: white;
   cursor: pointer;
   transition: border-color 0.3s;
-}
 
-.sort-select:focus {
-  outline: none;
-  border-color: #ff6f0f;
-}
+  &:focus {
+    outline: none;
+    border-color: #ff6f0f;
+  }
+`;
 
-.posts-count {
+export const PostsCount = styled.div`
   margin-bottom: 1rem;
   color: #666;
   font-size: 0.9rem;
-}
+`;
 
-.no-posts {
+export const NoPosts = styled.div`
   text-align: center;
   padding: 4rem 2rem;
   background-color: #f9f9f9;
   border-radius: 12px;
-}
 
-.no-posts p {
-  color: #666;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
+  p {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+`;
 
-.write-link {
+export const WriteLink = styled(Link)`
   display: inline-block;
   padding: 0.75rem 1.5rem;
   background-color: #ff6f0f;
@@ -130,19 +151,24 @@
   border-radius: 8px;
   font-weight: 500;
   transition: background-color 0.3s;
-}
 
-.write-link:hover {
-  background-color: #ff8533;
-}
+  &:hover {
+    background-color: #ff8533;
+  }
+`;
 
-.posts-grid {
+export const PostsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
-}
 
-.post-card {
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+`;
+
+export const PostCard = styled(Link)`
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -152,14 +178,14 @@
   color: inherit;
   display: flex;
   flex-direction: column;
-}
 
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+`;
 
-.post-image {
+export const PostImage = styled.div`
   width: 100%;
   height: 200px;
   background-color: #f5f5f5;
@@ -167,28 +193,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.post-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
 
-.no-image {
+export const NoImage = styled.div`
   color: #999;
   font-size: 0.9rem;
-}
+`;
 
-.post-content {
+export const PostContent = styled.div`
   padding: 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
+`;
 
-.post-title {
+export const PostTitle = styled.h3`
   font-size: 1.1rem;
   font-weight: 600;
   color: #333;
@@ -198,61 +224,36 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-}
+`;
 
-.post-price {
+export const PostPrice = styled.p`
   font-size: 1.3rem;
   font-weight: bold;
   color: #ff6f0f;
   margin: 0.5rem 0;
-}
+`;
 
-.post-meta {
+export const PostMeta = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
   color: #666;
   margin-top: auto;
-}
+`;
 
-.post-location {
+export const PostLocation = styled.span`
   color: #666;
-}
+`;
 
-.post-date {
+export const PostDate = styled.span`
   color: #999;
-}
+`;
 
-.post-author {
+export const PostAuthor = styled.div`
   font-size: 0.85rem;
   color: #999;
   padding-top: 0.5rem;
   border-top: 1px solid #eee;
-}
-
-@media (max-width: 768px) {
-  .board-header h1 {
-    font-size: 2rem;
-  }
-
-  .board-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .search-box {
-    max-width: 100%;
-  }
-
-  .controls-right {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .posts-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-}
+`;
 

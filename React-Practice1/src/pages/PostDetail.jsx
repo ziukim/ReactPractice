@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { storage } from '../utils/storage';
-import './PostDetail.css';
+import * as S from './PostDetail.styled';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -53,76 +53,76 @@ const PostDetail = () => {
 
   if (loading) {
     return (
-      <div className="post-detail-container">
-        <div className="loading">로딩 중...</div>
-      </div>
+      <S.PostDetailContainer>
+        <S.Loading>로딩 중...</S.Loading>
+      </S.PostDetailContainer>
     );
   }
 
   if (!post) {
     return (
-      <div className="post-detail-container">
-        <div className="not-found">
+      <S.PostDetailContainer>
+        <S.NotFound>
           <h2>게시글을 찾을 수 없습니다</h2>
           <p>요청하신 게시글이 존재하지 않거나 삭제되었습니다.</p>
-          <Link to="/board" className="back-link">
+          <S.BackLink to="/board">
             게시판으로 돌아가기
-          </Link>
-        </div>
-      </div>
+          </S.BackLink>
+        </S.NotFound>
+      </S.PostDetailContainer>
     );
   }
 
   const isAuthor = user && user.id === post.author;
 
   return (
-    <div className="post-detail-container">
-      <div className="post-detail-card">
-        <div className="post-header">
-          <div className="post-title-section">
+    <S.PostDetailContainer>
+      <S.PostDetailCard>
+        <S.PostHeader>
+          <S.PostTitleSection>
             <h1>{post.title}</h1>
-            <div className="post-meta">
-              <span className="post-location">{post.location || '지역 미정'}</span>
-              <span className="post-date">{formatDate(post.createdAt)}</span>
-            </div>
-          </div>
+            <S.PostMeta>
+              <S.PostLocation>{post.location || '지역 미정'}</S.PostLocation>
+              <S.PostDate>{formatDate(post.createdAt)}</S.PostDate>
+            </S.PostMeta>
+          </S.PostTitleSection>
           {isAuthor && (
-            <div className="post-actions">
-              <Link to={`/post/edit/${post.id}`} className="edit-button">
+            <S.PostActions>
+              <S.EditButton to={`/post/edit/${post.id}`}>
                 수정
-              </Link>
-              <button onClick={handleDelete} className="delete-button">
+              </S.EditButton>
+              <S.DeleteButton onClick={handleDelete}>
                 삭제
-              </button>
-            </div>
+              </S.DeleteButton>
+            </S.PostActions>
           )}
-        </div>
+        </S.PostHeader>
 
-        <div className="post-content-section">
-          <div className="post-price-large">{formatPrice(post.price)}</div>
+        <S.PostContentSection>
+          <S.PostPriceLarge>{formatPrice(post.price)}</S.PostPriceLarge>
 
           {post.image && (
-            <div className="post-image-section">
+            <S.PostImageSection>
               <img src={post.image} alt={post.title} />
-            </div>
+            </S.PostImageSection>
           )}
 
-          <div className="post-content">
+          <S.PostContent>
             <pre>{post.content}</pre>
-          </div>
-        </div>
+          </S.PostContent>
+        </S.PostContentSection>
 
-        <div className="post-footer">
-          <div className="post-author-info">
-            <span className="author-label">작성자</span>
-            <span className="author-name">{post.authorName || '익명'}</span>
-          </div>
-          <Link to="/board" className="back-link">
+        <S.PostFooter>
+          <S.PostAuthorInfo>
+            <S.AuthorLabel>작성자</S.AuthorLabel>
+            <S.AuthorName>{post.authorName || '익명'}</S.AuthorName>
+          </S.PostAuthorInfo>
+          <S.BackLink to="/board">
             목록으로
-          </Link>
-        </div>
-      </div>
-    </div>
+          </S.BackLink>
+        </S.PostFooter>
+      </S.PostDetailCard>
+    </S.PostDetailContainer>
   );
 };
 

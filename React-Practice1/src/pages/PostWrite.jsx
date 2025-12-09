@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { storage } from '../utils/storage';
 import ProtectedRoute from '../components/ProtectedRoute';
-import './PostWrite.css';
+import * as S from './PostWrite.styled';
 
 const PostWrite = () => {
   const navigate = useNavigate();
@@ -97,12 +97,12 @@ const PostWrite = () => {
 
   return (
     <ProtectedRoute>
-      <div className="post-write-container">
-        <div className="post-write-card">
+      <S.PostWriteContainer>
+        <S.PostWriteCard>
           <h1>게시글 작성</h1>
 
-          <form onSubmit={handleSubmit} className="post-write-form">
-            <div className="form-group">
+          <S.PostWriteForm onSubmit={handleSubmit}>
+            <S.FormGroup>
               <label htmlFor="title">제목 *</label>
               <input
                 type="text"
@@ -114,11 +114,11 @@ const PostWrite = () => {
                 className={errors.title ? 'error' : ''}
               />
               {errors.title && (
-                <span className="error-message">{errors.title}</span>
+                <S.ErrorMessage>{errors.title}</S.ErrorMessage>
               )}
-            </div>
+            </S.FormGroup>
 
-            <div className="form-group">
+            <S.FormGroup>
               <label htmlFor="price">가격 (원)</label>
               <input
                 type="number"
@@ -131,11 +131,11 @@ const PostWrite = () => {
                 className={errors.price ? 'error' : ''}
               />
               {errors.price && (
-                <span className="error-message">{errors.price}</span>
+                <S.ErrorMessage>{errors.price}</S.ErrorMessage>
               )}
-            </div>
+            </S.FormGroup>
 
-            <div className="form-group">
+            <S.FormGroup>
               <label htmlFor="location">지역</label>
               <input
                 type="text"
@@ -145,9 +145,9 @@ const PostWrite = () => {
                 onChange={handleChange}
                 placeholder="예: 서울시 강남구 (선택사항)"
               />
-            </div>
+            </S.FormGroup>
 
-            <div className="form-group">
+            <S.FormGroup>
               <label htmlFor="image">이미지 URL</label>
               <input
                 type="url"
@@ -158,13 +158,13 @@ const PostWrite = () => {
                 placeholder="이미지 URL을 입력해주세요 (선택사항)"
               />
               {formData.image && (
-                <div className="image-preview">
+                <S.ImagePreview>
                   <img src={formData.image} alt="미리보기" />
-                </div>
+                </S.ImagePreview>
               )}
-            </div>
+            </S.FormGroup>
 
-            <div className="form-group">
+            <S.FormGroup>
               <label htmlFor="content">내용 *</label>
               <textarea
                 id="content"
@@ -176,29 +176,27 @@ const PostWrite = () => {
                 className={errors.content ? 'error' : ''}
               />
               {errors.content && (
-                <span className="error-message">{errors.content}</span>
+                <S.ErrorMessage>{errors.content}</S.ErrorMessage>
               )}
-            </div>
+            </S.FormGroup>
 
-            <div className="button-group">
-              <button
+            <S.ButtonGroup>
+              <S.CancelButton
                 type="button"
                 onClick={() => navigate('/board')}
-                className="cancel-button"
               >
                 취소
-              </button>
-              <button
+              </S.CancelButton>
+              <S.SubmitButton
                 type="submit"
-                className="submit-button"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? '등록 중...' : '등록하기'}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+              </S.SubmitButton>
+            </S.ButtonGroup>
+          </S.PostWriteForm>
+        </S.PostWriteCard>
+      </S.PostWriteContainer>
     </ProtectedRoute>
   );
 };

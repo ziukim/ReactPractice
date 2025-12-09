@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { storage } from '../utils/storage';
-import './Board.css';
+import * as S from './Board.styled';
 
 const Board = () => {
   const [posts, setPosts] = useState([]);
@@ -89,85 +88,82 @@ const Board = () => {
   };
 
   return (
-    <div className="board-container">
-      <div className="board-header">
+    <S.BoardContainer>
+      <S.BoardHeader>
         <h1>중고거래 게시판</h1>
-        <p className="subtitle">안전하고 편리한 중고거래를 시작해보세요</p>
-      </div>
+        <S.Subtitle>안전하고 편리한 중고거래를 시작해보세요</S.Subtitle>
+      </S.BoardHeader>
 
-      <div className="board-controls">
-        <div className="search-box">
-          <input
+      <S.BoardControls>
+        <S.SearchBox>
+          <S.SearchInput
             type="text"
             placeholder="제목, 내용으로 검색..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="search-input"
           />
-        </div>
-        <div className="controls-right">
-          <div className="sort-box">
+        </S.SearchBox>
+        <S.ControlsRight>
+          <S.SortBox>
             <label htmlFor="sort">정렬:</label>
-            <select
+            <S.SortSelect
               id="sort"
               value={sortBy}
               onChange={handleSortChange}
-              className="sort-select"
             >
               <option value="latest">최신순</option>
               <option value="oldest">오래된순</option>
               <option value="priceHigh">가격 높은순</option>
               <option value="priceLow">가격 낮은순</option>
-            </select>
-          </div>
-          <button onClick={loadPosts} className="refresh-button" title="새로고침">
+            </S.SortSelect>
+          </S.SortBox>
+          <S.RefreshButton onClick={loadPosts} title="새로고침">
             🔄
-          </button>
-        </div>
-      </div>
+          </S.RefreshButton>
+        </S.ControlsRight>
+      </S.BoardControls>
 
-      <div className="posts-count">
+      <S.PostsCount>
         총 {filteredPosts.length}개의 게시글
-      </div>
+      </S.PostsCount>
 
       {filteredPosts.length === 0 ? (
-        <div className="no-posts">
+        <S.NoPosts>
           <p>등록된 게시글이 없습니다.</p>
-          <Link to="/post/write" className="write-link">
+          <S.WriteLink to="/post/write">
             첫 게시글 작성하기
-          </Link>
-        </div>
+          </S.WriteLink>
+        </S.NoPosts>
       ) : (
-        <div className="posts-grid">
+        <S.PostsGrid>
           {filteredPosts.map((post) => (
-            <Link
+            <S.PostCard
               key={post.id}
               to={`/post/${post.id}`}
-              className="post-card"
             >
-              <div className="post-image">
+              <S.PostImage>
                 {post.image ? (
                   <img src={post.image} alt={post.title} />
                 ) : (
-                  <div className="no-image">이미지 없음</div>
+                  <S.NoImage>이미지 없음</S.NoImage>
                 )}
-              </div>
-              <div className="post-content">
-                <h3 className="post-title">{post.title}</h3>
-                <p className="post-price">{formatPrice(post.price)}</p>
-                <div className="post-meta">
-                  <span className="post-location">{post.location || '지역 미정'}</span>
-                  <span className="post-date">{formatDate(post.createdAt)}</span>
-                </div>
-                <div className="post-author">
+              </S.PostImage>
+              <S.PostContent>
+                <S.PostTitle>{post.title}</S.PostTitle>
+                <S.PostPrice>{formatPrice(post.price)}</S.PostPrice>
+                <S.PostMeta>
+                  <S.PostLocation>{post.location || '지역 미정'}</S.PostLocation>
+                  <S.PostDate>{formatDate(post.createdAt)}</S.PostDate>
+                </S.PostMeta>
+                <S.PostAuthor>
                   <span>{post.authorName || '익명'}</span>
-                </div>
-              </div>
-            </Link>
+                </S.PostAuthor>
+              </S.PostContent>
+            </S.PostCard>
           ))}
-        </div>
+        </S.PostsGrid>
       )}
-    </div>
+    </S.BoardContainer>
   );
 };
 

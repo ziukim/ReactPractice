@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { storage } from '../utils/storage';
-import './Signup.css';
+import * as S from './Signup.styled';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -145,13 +145,13 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-card">
+    <S.SignupContainer>
+      <S.SignupCard>
         <h1>회원가입</h1>
-        <p className="subtitle">중고거래 플랫폼에 오신 것을 환영합니다!</p>
+        <S.Subtitle>중고거래 플랫폼에 오신 것을 환영합니다!</S.Subtitle>
 
-        <form onSubmit={handleSubmit} className="signup-form">
-          <div className="form-group">
+        <S.SignupForm onSubmit={handleSubmit}>
+          <S.FormGroup>
             <label htmlFor="username">사용자명 *</label>
             <input
               type="text"
@@ -162,10 +162,10 @@ const Signup = () => {
               placeholder="3자 이상, 영문/숫자/언더스코어만"
               className={errors.username ? 'error' : ''}
             />
-            {errors.username && <span className="error-message">{errors.username}</span>}
-          </div>
+            {errors.username && <S.ErrorMessage>{errors.username}</S.ErrorMessage>}
+          </S.FormGroup>
 
-          <div className="form-group">
+          <S.FormGroup>
             <label htmlFor="email">이메일 *</label>
             <input
               type="email"
@@ -176,10 +176,10 @@ const Signup = () => {
               placeholder="example@email.com"
               className={errors.email ? 'error' : ''}
             />
-            {errors.email && <span className="error-message">{errors.email}</span>}
-          </div>
+            {errors.email && <S.ErrorMessage>{errors.email}</S.ErrorMessage>}
+          </S.FormGroup>
 
-          <div className="form-group">
+          <S.FormGroup>
             <label htmlFor="nickname">닉네임 *</label>
             <input
               type="text"
@@ -190,10 +190,10 @@ const Signup = () => {
               placeholder="2자 이상"
               className={errors.nickname ? 'error' : ''}
             />
-            {errors.nickname && <span className="error-message">{errors.nickname}</span>}
-          </div>
+            {errors.nickname && <S.ErrorMessage>{errors.nickname}</S.ErrorMessage>}
+          </S.FormGroup>
 
-          <div className="form-group">
+          <S.FormGroup>
             <label htmlFor="password">비밀번호 *</label>
             <input
               type="password"
@@ -204,10 +204,10 @@ const Signup = () => {
               placeholder="6자 이상"
               className={errors.password ? 'error' : ''}
             />
-            {errors.password && <span className="error-message">{errors.password}</span>}
-          </div>
+            {errors.password && <S.ErrorMessage>{errors.password}</S.ErrorMessage>}
+          </S.FormGroup>
 
-          <div className="form-group">
+          <S.FormGroup>
             <label htmlFor="passwordConfirm">비밀번호 확인 *</label>
             <input
               type="password"
@@ -219,26 +219,25 @@ const Signup = () => {
               className={errors.passwordConfirm ? 'error' : ''}
             />
             {errors.passwordConfirm && (
-              <span className="error-message">{errors.passwordConfirm}</span>
+              <S.ErrorMessage>{errors.passwordConfirm}</S.ErrorMessage>
             )}
-          </div>
+          </S.FormGroup>
 
-          <button 
+          <S.SubmitButton 
             type="submit" 
-            className="submit-button"
             disabled={isSubmitting}
           >
             {isSubmitting ? '가입 중...' : '회원가입'}
-          </button>
-        </form>
+          </S.SubmitButton>
+        </S.SignupForm>
 
-        <div className="login-link">
+        <S.LoginLink>
           <p>
             이미 계정이 있으신가요? <Link to="/login">로그인하기</Link>
           </p>
-        </div>
-      </div>
-    </div>
+        </S.LoginLink>
+      </S.SignupCard>
+    </S.SignupContainer>
   );
 };
 

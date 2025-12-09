@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Layout.css';
+import * as S from './Layout.styled';
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
@@ -14,22 +14,22 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="layout">
-      <header className="header">
-        <div className="header-container">
-          <Link to="/" className="logo">
+    <S.LayoutContainer>
+      <S.Header>
+        <S.HeaderContainer>
+          <S.Logo to="/">
             🥕 중고거래
-          </Link>
-          <nav className="nav">
+          </S.Logo>
+          <S.Nav>
             <Link to="/board">게시판</Link>
             {isAuthenticated ? (
               <>
                 <Link to="/post/write">글쓰기</Link>
                 <Link to="/mypage">마이페이지</Link>
-                <span className="user-info">{user?.nickname || user?.username}님</span>
-                <button onClick={handleLogout} className="logout-button">
+                <S.UserInfo>{user?.nickname || user?.username}님</S.UserInfo>
+                <S.LogoutButton onClick={handleLogout}>
                   로그아웃
-                </button>
+                </S.LogoutButton>
               </>
             ) : (
               <>
@@ -37,18 +37,17 @@ const Layout = ({ children }) => {
                 <Link to="/signup">회원가입</Link>
               </>
             )}
-          </nav>
-        </div>
-      </header>
-      <main className="main">
+          </S.Nav>
+        </S.HeaderContainer>
+      </S.Header>
+      <S.Main>
         {children}
-      </main>
-      <footer className="footer">
+      </S.Main>
+      <S.Footer>
         <p>&copy; 2024 중고거래 플랫폼. All rights reserved.</p>
-      </footer>
-    </div>
+      </S.Footer>
+    </S.LayoutContainer>
   );
 };
 
 export default Layout;
-

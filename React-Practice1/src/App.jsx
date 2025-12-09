@@ -13,7 +13,7 @@ import MyPage from './pages/MyPage';
 import NotFound from './pages/NotFound';
 import { initializeSampleData } from './utils/sampleData';
 import { storage } from './utils/storage';
-import './App.css';
+import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
   useEffect(() => {
@@ -24,6 +24,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <GlobalStyle />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
