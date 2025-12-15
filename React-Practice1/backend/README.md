@@ -4,7 +4,7 @@
 
 ## 상세 문서
 
-프로젝트 루트의 [README.md](../README.md)를 참고하세요.
+프로젝트 루트의 [README.md](../../README.md)를 참고하세요.
 
 ## 추가 설계 문서
 
@@ -20,9 +20,7 @@
 ## 빠른 시작
 
 ```bash
-cd backend
 mvn spring-boot:run
 ```
 
 서버는 `http://localhost:8080`에서 실행됩니다.
-
