@@ -33,7 +33,27 @@ public class PostService {
             sortBy = "latest";
         }
         
-        List<Post> posts = postRepository.findAllWithSearchAndSort(searchTerm, sortBy);
+        List<Post> posts = postRepository.findAllWithSearch(searchTerm);
+        
+        // 정렬 적용
+        posts.sort((a, b) -> {
+            switch (sortBy) {
+                case "latest":
+                    return b.getCreatedAt().compareTo(a.getCreatedAt());
+                case "oldest":
+                    return a.getCreatedAt().compareTo(b.getCreatedAt());
+                case "priceHigh":
+                    Long priceA = a.getPrice() != null ? a.getPrice() : 0L;
+                    Long priceB = b.getPrice() != null ? b.getPrice() : 0L;
+                    return priceB.compareTo(priceA);
+                case "priceLow":
+                    Long priceALow = a.getPrice() != null ? a.getPrice() : Long.MAX_VALUE;
+                    Long priceBLow = b.getPrice() != null ? b.getPrice() : Long.MAX_VALUE;
+                    return priceALow.compareTo(priceBLow);
+                default:
+                    return b.getCreatedAt().compareTo(a.getCreatedAt());
+            }
+        });
         
         return posts.stream()
                 .map(this::convertToResponse)
