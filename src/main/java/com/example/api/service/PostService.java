@@ -36,8 +36,9 @@ public class PostService {
         List<Post> posts = postRepository.findAllWithSearch(searchTerm);
         
         // 정렬 적용
+        String finalSortBy = sortBy;
         posts.sort((a, b) -> {
-            switch (sortBy) {
+            switch (finalSortBy) {
                 case "latest":
                     return b.getCreatedAt().compareTo(a.getCreatedAt());
                 case "oldest":
